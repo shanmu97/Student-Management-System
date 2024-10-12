@@ -56,6 +56,10 @@ public class Student {
         setStudentId();
     }
 
+    public String getId(){
+        return this.studentId;
+    }
+
     // generate a 6 digit id for a student
     private void setStudentId() {
         // GradeLevel+Id for unique values
@@ -92,6 +96,7 @@ public class Student {
             } else {
                 enrolledCourses.add(courseCode);
                 tutionBalance += codeToFees.get(courseCode);
+                
             }
         } while (1 != 2);
 
@@ -104,6 +109,13 @@ public class Student {
             System.out.println(i + "           " + codeToName.get(i));
         }
     }
+    public ArrayList<String> registeredCourses(){
+        return enrolledCourses;
+    }
+
+    public HashMap<String,String> converter(){
+        return codeToName;
+    }
 
     // View balance
     public void viewBalance() {
@@ -112,18 +124,22 @@ public class Student {
 
     // Pay Tution
     public void payBalance() {
+        Admin ad = new Admin();
         viewBalance();
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the amount: ");
         int amount = sc.nextInt();
         if (amount >= tutionBalance) {
             tutionBalance = 0;
+            ad.totalEarnings+=tutionBalance;
             System.out.println("Thanks for your complete payment of " + tutionBalance + " rupees");
         } else {
             tutionBalance -= amount;
+            ad.totalEarnings+=amount;
             System.out.println("Thanks for your payment of " + amount + " rupees");
             System.out.println("Your Remaining Balance is " + tutionBalance);
         }
+        
     }
 
     // Show Status
